@@ -16,44 +16,62 @@ ETCDCTL can interact with ETCD Server using 2 API versions - Version 2 and Versi
 
 Runs ETCD which listens on port 2379
 
+```bash
 ./etcd
+```
 
 Store a key-value pair
 
+```bash
 ./etcdctl set key1 value1
+```
 
 Get a value from a key
 
+```bash
 ./etcdctl get key1
+```
 
 Set version of the ETCD API and check
 
+```bash
 export ETCDCTL_API=3
 ./etcdctl version
+```
 
 To store a key-value pair in Version 3:
 
+```bash
 ./etcdctl put key1 value1
+```
 
 To explore the etcd database
 
+```bash
 kubectl get pods -n kube-system
+```
 
 To list all keys stored by Kubernetes, run the following command inside the etcd-master pod
 
+```bash
 kubectl exec etcd-master -n kube-system etcdctl get / --prefix -keys-only
+```
 
 ## Kube-API Server
 
 View Kube-API server options in an existing cluster if set up using kubeadm
 
+```bash
 kubectl get pods -n kube-system
+```
 
 In a non-kubeadm set up you can see the API options using the following:
 
+```bash
 cat /etc/systemd/system/kube-apiserver.service
 
 ps -aux | grep kube-apiserver
+```
 
 ## Kube Controller Manager
 
@@ -63,9 +81,11 @@ For example, the node-controller monitors the nodes using the kube-apiserver eve
 
 View Kube Controller Manager options using kubeadm namespace as previous or use the command in a non-kubeadm environment:
 
+```bash
 cat /etc/kubernetes/manifests/kube-controller-manager.yaml
 
 ps -aux | grep kube-controller-manager
+```
 
 ## Kube Scheduler
 
@@ -73,9 +93,11 @@ Decides which pod goes where, it can filter nodes based on metrics such as CPU e
 
 View the scheduler in the kube-system namespace as previous or use the command:
 
+```bash
 cat /etc/kubernetes/manifests/kube-scheduler.yaml
 
 ps -aux | grep kube-scheduler
+```
 
 ## Kubelet
 
@@ -83,7 +105,9 @@ Point of contact between other worker nodes and the master. Kubelets registers n
 
 > Note: Kubeadm does not deploy Kubelets
 
+```bash
 ps -aux | grep kubelet
+```
 
 ## Kube Proxy
 
@@ -91,7 +115,9 @@ Every pod can communicate with every other pod using an internal pod network ove
 
 Kube-proxy runs on each node which looks for new services, it then creates the appropriate rules so it can connect with the new services using IP rules tables.
 
+```bash
 kubectl get daemonset -n kube-system
+```
 
 ## Kube Pods
 
@@ -164,15 +190,19 @@ spec:
 
 We can update the replicas number in the YAML file to scale up the replicas of pods and run either of the following commands to update the file:
 
+```bash
 kubectl edit rs <rs-name>
 
 kubectl replace -f <file-name.yaml>
+```
 
 Or we can use the scale command so we do not have to update the YAML file:
 
+```bash
 kubectl scale --replicas=6 -f <file-name.yaml>
 
 kubectl scale --replicas=6 replicaset <replicaset-name>
+```
 
 ## Deployments
 
@@ -182,15 +212,21 @@ Deployments are one level higher and can use replica sets and also control updat
 
 To get information about all objects, use the following command:
 
+```bash
 kubectl get all
+```
 
 Use the following command to create a deployment:
 
+```bash
 kubectl create deployment <deployment-name> --image=<image-name>
+```
 
 Generate the deployment YAML file (use --dry-run to test and not create it)
 
+```bash
 kubectl create deployment <deployment-name> --image=<image-name> --replicas=<n> --dry-run=client -o yaml > <file-name.yaml>
+```
 
 ## Services
 
@@ -220,23 +256,31 @@ External namespace format: 'service-name.namespace.service.domain'
 
 To create a pod inside a specific namespace use the command:
 
+```bash
 kubectl create -f <file.yaml> --namepsace=<namespace>
+```
 
 Or you can add `namespace` definition to the YAML file.
 
 To create a new namespace, write a YAML file to define the namespace or create it using a command:
 
+```bash
 kubectl create -f <namespace-file.yaml>
 
 kubectl create namespace <name>
+```
 
 To switch namespaces:
 
+```bash
 kubectl config set-context $(kubectl config current-context) --namespace=<desired-namespace>
+```
 
 Or to view pods in all namespaces:
 
+```bash
 kubectl get pods --all-namespaces
+```
 
 ## Imperative vs Declarative
 

@@ -18,7 +18,9 @@ You can create as many custom labels in the YAML definition files.
 
 E.g. to get pods with a specific label:
 
+```bash
 kubectl get pods --selector label=label-name
+```
 
 Annotations can be used to record other additional details for information such as build or version information.
 
@@ -30,7 +32,9 @@ We can place a taint on a node, and by default, pods do not have any tolerations
 
 To create a taint on a node:
 
+```bash
 kubectl taint nodes <node-name> <key>=<value>:<taint-effect>
+```
 
 There are three `taint-effects`:
 
