@@ -5,8 +5,8 @@
 | CLI Tool | `ctr` | `nerdctl` | `crictl` |
 | -------- | --- | ------- | ------ |
 | Purpose  | Debugging | General | Debugging |
-| Community  | ContainerD | ContainerD | Kubernetes |
-| Works with | ContainerD | ContainerD | All CRI Runtimes |
+| Community  | Containerd | Containerd | Kubernetes |
+| Works with | Containerd | Containerd | All CRI Runtimes |
 
 ## ETCD
 
@@ -101,19 +101,29 @@ You can deploy multiple pods inside a node or launch a new node and pod.
 
 A single pod can have multiple container instances only if they are different applications such as having a 'helper' container.
 
-Create a pod using the command
+Create a pod using the command:
 
+```bash
 kubectl run <application> --image <container-image>
-
-kubectl get pods
+```
 
 Get more details about a specific pod
 
+```bash
+kubectl get pods
+
 kubectl describe pod <pod-name>
+```
 
 Alternatively, write a YAML file to specify the desired pod and use the following command to create from file:
 
+```bash
 kubectl create -f <file-name.yaml>
+```
+
+```bash
+kubectl run --image=nginx nginx - o yaml --dry-run=client
+```
 
 ## Replica Sets
 
